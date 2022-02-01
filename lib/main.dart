@@ -43,13 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Wrap(
+        clipBehavior: Clip.none,
+        runSpacing: 0.2,
         direction: Axis.vertical,
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.end,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           AspectRatio(
-            aspectRatio: 0.4,
+            aspectRatio: 0.38,
             child: GridView.count(
               mainAxisSpacing: (itemWidth / itemHeight),
               crossAxisCount: 3,
