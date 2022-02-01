@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.yellow,
       ),
-      home: const MyHomePage(title: 'La Dheel A.I'),
+      home: const MyHomePage(title: "La Dheel A.i"),
     );
   }
 }
@@ -34,18 +34,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(widget.title),
-        ),
-      ),
-      body: Row(
+      backgroundColor: Colors.blue,
+      body: Wrap(
+        direction: Axis.vertical,
+        alignment: WrapAlignment.center,
+        runAlignment: WrapAlignment.end,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           AspectRatio(
             aspectRatio: 0.4,
             child: GridView.count(
+              mainAxisSpacing: (itemWidth / itemHeight),
               crossAxisCount: 3,
+              shrinkWrap: true,
+              controller: ScrollController(keepScrollOffset: false),
+              scrollDirection: Axis.vertical,
               children: [
                 for (var i = 0; i < 9; i++)
                   InkWell(
@@ -55,13 +65,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         runAi();
                       });
                     },
-                    child: Center(
-                        child: Text(tiles[i] == 0
-                            ? ''
-                            : tiles[i] == 1
-                                ? 'X'
-                                : 'O')),
-                  )
+                    child: Padding(
+                      padding: const EdgeInsets.all(3),
+                      child: Card(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                            child: Text(tiles[i] == 0
+                                ? ''
+                                : tiles[i] == 1
+                                    ? 'X'
+                                    : 'O')),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -81,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: const Text('Restart'))
             ],
-          )
+          ),
         ],
       ),
     );
